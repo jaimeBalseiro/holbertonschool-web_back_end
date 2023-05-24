@@ -6,7 +6,7 @@ a concatenated string
 """
 
 
-def concat(str1: float, str2: float) -> float:
+def concat(str1: str, str2: str) -> str:
     """
     Func takes the two strings
     and returns the sum as a 
