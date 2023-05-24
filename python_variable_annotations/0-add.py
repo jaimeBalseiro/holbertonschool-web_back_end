@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Write a type-annotated function add, that 
+Write a type-annotated function add, that
 takes a float a, b and returns their sum
 """
 
