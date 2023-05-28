@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
+"""async comprehension module
 """
-_summary_
-"""
-
 import asyncio
 from typing import List
 
@@ -10,9 +8,9 @@ async_generator = __import__('0-async_generator').async_generator
 
 
 async def async_comprehension() -> List[float]:
-    """_summary_
-    Async Comprehensions
+    """create a List with 10 number random
+
     Returns:
-        list[float]: random numbers
+        List[float]: a list with result of async generator method
     """
-    return [i async for i in async_generator()]
+    return [n async for n in async_generator()]
