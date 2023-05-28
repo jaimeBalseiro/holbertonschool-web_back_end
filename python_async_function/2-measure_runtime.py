@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-"""Take imported from task 1"""
-
-
-import time
-from typing import List
-import random
+"""measure time module
+"""
 import asyncio
+import random
+from time import perf_counter
+
 wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-def measure_time(n: int, max_delay: int = 10) -> float:
-    """_summary_
+def measure_time(n: int, max_delay: int) -> float:
+    """Measures time of async funcs.
+
     Args:
-        n (int): _description_
-        max_delay (int): _description_
+        n (int): times
+        max_delay (int): dalay max number
+
     Returns:
-        float: _description_
+        float: result
     """
-    start = time.time()
+    counter = perf_counter()
     asyncio.run(wait_n(n, max_delay))
-    end = time.time()
-    total_time = end - start
-    return (total_time / 2)
+    result = perf_counter() - counter
+    return result
