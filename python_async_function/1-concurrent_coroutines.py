@@ -7,6 +7,7 @@ import random
 import asyncio
 wait_random = __import__('0-basic_async_syntax').wait_random
 
+
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """return the list of all delays (float values)
     The list should be in ascending order without
