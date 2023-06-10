@@ -34,9 +34,29 @@ class DB:
 
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Add a new user
+        """add user to database
+
+        Args:
+            email (string): email of user
+            hashed_password (string): password of user
+        Returns:
+            User: user created
         """
-        new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
-        return new_user
+        if not email or not hashed_password:
+            return
+        user = User(email=email, hashed_password=hashed_password)
+        session = self._session
+        session.add(user)
+        session.commit()
+        return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """find user by some arguments
+
+        Returns:
+            User: user found or raise error
+        """
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if not user:
+            raise NoResultFound
+        return user
