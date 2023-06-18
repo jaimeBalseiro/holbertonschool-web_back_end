@@ -1,20 +1,10 @@
 #!/usr/bin/env python3
-"""basic Flask app"""
+"""
+Flask app
+"""
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel
 
-app = Flask(__name__, template_folder='templates')
-babel = Babel(app)
-
-
-class Config:
-    """class cofig for the Flask app"""
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = 'en'
-    BABEL_DEFAULT_TIMEZONE = 'UTC'
-
-
-app.config.from_object(Config)
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -24,40 +14,53 @@ users = {
 }
 
 
-def get_user(user_id):
-    """Get a user from database."""
-    return users.get(user_id)
+class Config(object):
+    """
+    Config for languages
+    """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-@app.before_request
-def before_request():
-    """Set the global user for each request."""
-    user_id = request.args.get('login_as')
-    g.user = get_user(int(user_id)) if user_id else None
+app = Flask(__name__)
+babel = Babel(app)
+app.config.from_object(Config)
+
+
+@app.route('/', methods=["GET"], strict_slashes=False)
+def index():
+    """
+    Return index
+    """
+    return render_template('5-index.html')
 
 
 @babel.localeselector
 def get_locale():
     """
-    get_locale function
+    Get locale selector for babel
     """
-    user = getattr(g, 'user', None)
-    if user is not None:
-        locale = user['locale']
-        if locale in app.config['LANGUAGES']:
-            return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    locale = request.args.get('locale')
+    lang = locale if locale else request.accept_languages.best_match(
+        app.config['LANGUAGES'])
+    return lang
 
 
-@app.route('/', methods=["GET"])
-def index():
+def get_user():
     """
-    index template
+    Get user or return None
     """
-    return render_template(
-        '5-index.html',
-        username=g.user['name'] if g.user else None)
+    loggin_as = request.args.get('login_as')
+    if not loggin_as:
+        return None
+    user = int(loggin_as)
+    return users.get(user) if user in users else None
 
 
-if __name__ == '__main__':
-    app.run(use_reloader=True, debug=True)
+@app.before_request
+def before_request():
+    """
+    before request for user
+    """
+    g.user = get_user()
