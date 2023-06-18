@@ -21,3 +21,7 @@ msgstr "Hello World!"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
+
+#: app.py:30
+msgid "The current time is %(current_time)s."
+msgstr "Nous sommes le %(current_time)s."
