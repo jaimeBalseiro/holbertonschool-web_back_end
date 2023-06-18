@@ -9,7 +9,9 @@ from unittest import mock
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """"""
+    """
+    Class for testing Nested Map function
+    """
     @parameterized.expand([
         ({'a': 1}, ['a'], 1),
         ({'a': {'b': 2}}, ['a'], {'b': 2}),
@@ -80,3 +82,4 @@ class TestMemoize(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
