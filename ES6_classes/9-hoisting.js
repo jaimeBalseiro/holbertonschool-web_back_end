@@ -3,9 +3,11 @@ class HolbertonClass {
     this._year = year;
     this._location = location;
   }
+
   get year() {
     return this._year;
   }
+
   get location() {
     return this._location;
   }
@@ -18,9 +20,11 @@ class HolbertonClass {
       this._lastName = lastName;
       this._holbertonClass = holbertonClass;
     }
+
     get fullName() {
       return `${this._firstName} ${this._lastName}`;
     }
+
     get holbertonClass() {
       return this.holbertonClass;
     }
