@@ -84,3 +84,4 @@ class Cache:
     def get_list(self, k: str) -> List:
         """ Convert bytes from store to list """
         return self._redis.lrange(k, 0, -1)
+    
