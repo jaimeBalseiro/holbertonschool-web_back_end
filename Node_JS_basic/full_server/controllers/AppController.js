@@ -3,4 +3,3 @@ module.exports = class AppController {
     response.status(200).send('Hello Holberton School!');
   }
 };
-  
